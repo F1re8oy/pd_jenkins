@@ -80,7 +80,7 @@ def deploy(String env, int port) {
     git branch: 'main', poll: false, url: 'https://github.com/mtararujs/python-greetings.git'
     dir('python-greetings') {
         echo "Deleting service if exists: greetings-app-${env}..."
-        bat "node_modules\\.bin\\pm2 delete greetings-app-${env} & set errorlevel=0"
+        bat "node_modules\\.bin\\pm2 delete greetings-app-${env} || exit 0"
         echo "Starting service ${env} on port ${port}..."
         bat "node_modules\\.bin\\pm2 start app.py --name greetings-app-${env} -- --port ${port}"
     }
