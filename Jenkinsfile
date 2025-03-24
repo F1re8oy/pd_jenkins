@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PM2_HOME = "${WORKSPACE}\\.pm2" // Darba direktorija norādīšana lai pm2 var veidot log failus
+        PM2_HOME = "${WORKSPACE}\\.pm2" // Darba direktorija norādīšana lai pm2 var veidot log failus, bija kļūda, ka pm2 nevarēja veidot log failus, jo mēģināja darīt ārpus kenkins direktorijas
     }
     stages {
         stage('install-pip-deps') {
@@ -83,7 +83,7 @@ def deploy(String env, int port) {
     git branch: 'main', poll: false, url: 'https://github.com/mtararujs/python-greetings.git'
     dir('python-greetings') {
         echo "Deleting service if exists: greetings-app-${env}..."
-        bat "npx pm2 delete greetings-app-${env} || exit 0"
+        bat "npx pm2 delete greetings-app-${env} || exit 0" // norādīts npx, jo savādāk pm2 neņēma pretī
         echo "Starting service ${env} on port ${port}..."
         bat "npx pm2 start app.py --name greetings-app-${env} -- --port ${port}"
     }
@@ -98,7 +98,7 @@ def test(String env) {
         bat "npm install"
         echo "Running test greetings_${env}..."
         bat "npm run greetings greetings_${env}"
-        echo "Deleting service if exists: greetings-app-${env}..."
+        echo "Deleting service if exists: greetings-app-${env}..." // pievienots cleanup pēc testa pabeigšanas
         bat "npx pm2 delete greetings-app-${env} || exit 0"
     }
 }
