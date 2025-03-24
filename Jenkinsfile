@@ -42,7 +42,7 @@ pipeline {
         stage('tests-on-staging') {
             steps {
                 script {
-                    test('staging')
+                    test('stg')
                 }
             }
         }
