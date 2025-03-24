@@ -82,7 +82,7 @@ def deploy(String env, int port) {
         echo "Deleting service if exists: greetings-app-${env}..."
         bat "node_modules\\.bin\\pm2 delete greetings-app-${env} || exit 0"
         echo "Starting service ${env} on port ${port}..."
-        bat "node_modules\\.bin\\pm2 start app.py --name greetings-app-${env} -- --port ${port}"
+        bat "node_modules\\.bin\\pm2 start app.py --name greetings-app-${env} -- ${port}"
     }
 }
 
