@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     echo "Cloning python-greetings repo..."
-                    bat 'git clone https://github.com/mtararujs/python-greetings.git || set errorlevel=0'
+                    git branch: 'main', poll: false, url: 'https://github.com/mtararujs/python-greetings.git'
                     dir('python-greetings') {
                         echo "Displaying repo content..."
                         bat 'dir'
