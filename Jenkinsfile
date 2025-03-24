@@ -77,7 +77,7 @@ pipeline {
 def deploy(String env, int port) {
     echo "Deploying to ${env} environment..."
     echo "Cloning python-greetings repo..."
-    bat 'git clone https://github.com/mtararujs/python-greetings.git || set errorlevel=0'
+    git branch: 'main', poll: false, url: 'https://github.com/mtararujs/python-greetings.git'
     dir('python-greetings') {
         echo "Deleting service if exists: greetings-app-${env}..."
         bat "pm2 delete greetings-app-${env} & set errorlevel=0"
@@ -89,7 +89,7 @@ def deploy(String env, int port) {
 def test(String env) {
     echo "Testing ${env} environment..."
     echo "Cloning course-js-api-framework repo..."
-    bat 'git clone https://github.com/mtararujs/course-js-api-framework.git || set errorlevel=0'
+    git branch: 'main', poll: false, url: 'https://github.com/mtararujs/course-js-api-framework.git'
     dir('course-js-api-framework') {
         echo "Installing npm packages..."
         bat "npm install"
