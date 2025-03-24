@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        PM2_HOME = "${WORKSPACE}\\.pm2" // Darba direktorija norādīšana lai pm2 var veidot log failus
+    }
     stages {
         stage('install-pip-deps') {
             steps {
