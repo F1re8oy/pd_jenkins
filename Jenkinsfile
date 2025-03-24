@@ -86,8 +86,6 @@ def deploy(String env, int port) {
         bat "npx pm2 delete greetings-app-${env} || exit 0"
         echo "Starting service ${env} on port ${port}..."
         bat "npx pm2 start app.py --name greetings-app-${env} -- --port ${port}"
-        echo "Deleting service: greetings-app-${env}..."
-        bat "npx pm2 delete greetings-app-${env} || exit 0"
     }
 }
 
@@ -100,5 +98,7 @@ def test(String env) {
         bat "npm install"
         echo "Running test greetings_${env}..."
         bat "npm run greetings greetings_${env}"
+        echo "Deleting service if exists: greetings-app-${env}..."
+        bat "npx pm2 delete greetings-app-${env} || exit 0"
     }
 }
