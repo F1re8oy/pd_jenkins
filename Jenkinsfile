@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PM2_HOME = "${WORKSPACE}\\.pm2" // Darba direktorija norādīšana lai pm2 var veidot log failus, bija kļūda, ka pm2 nevarēja veidot log failus, jo mēģināja darīt ārpus kenkins direktorijas
+        PM2_HOME = "${WORKSPACE}\\.pm2" // Darba direktorija norādīšana lai pm2 var veidot log failus, bija kļūda, ka pm2 nevarēja veidot, jo mēģināja darīt ārpus kenkins direktorijas
     }
     stages {
         stage('install-pip-deps') {
@@ -102,3 +102,6 @@ def test(String env) {
         bat "npx pm2 delete greetings-app-${env} || exit 0"
     }
 }
+
+
+// repo: https://github.com/F1re8oy/pd_jenkins
